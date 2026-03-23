@@ -22,7 +22,7 @@
        <input type="submit" value="Cadastrar">
     </form>
     @if($errors->any())
-    <div style="color:aqua">
+    <div style="color:rgb(236, 58, 34)">
         <ul>
             @foreach ($errors->all() as $erro)
             <li>{{$erro}}</li>
