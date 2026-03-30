@@ -42,5 +42,14 @@
         $aluno->save(); //salvando o banco de dados 
         return redirect()->back()->with('success','Aluno atualizado com sucesso');
      }
+
+     public function deletar($id){
+        $aluno = Aluno::findOrFail($id); //Buscar o aluno para depois deletar
+        $aluno->delete(); //faz o delete no banco de dados 
+
+        return redirect()->route('aluno.listar')->with('sucess','Aluno excluido com sucesso!');
+     } // recarregar a tela 
+
+
     }
 ?>
