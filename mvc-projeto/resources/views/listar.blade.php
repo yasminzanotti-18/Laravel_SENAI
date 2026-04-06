@@ -28,7 +28,13 @@
               <td> 
               <a href="{{route('produto.atualizar', $produto->id)}}">Atualizar</a>
               </td>
-              <td> </td>
+              <td> 
+                <form action="{{route('produto.deletar', $produto->id)}}" method="POST " onsubmit="return confirm('Deseja realmente excluir');"> 
+                  @csrf  
+                  @method('DELETE')
+                  <button type="submit">Excluir</button>
+                 </form>
+              </td>
            </tr>
         @empty
            <tr>

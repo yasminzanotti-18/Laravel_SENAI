@@ -44,6 +44,13 @@ public function add(Request $request){
         $produto->save(); //salvando o banco de dados 
         return redirect()->back()->with('success','Produto atualizado com sucesso');
      }
+
+     public function deletar($id){
+        $produto = Produto::findOrFail($id); //Buscar o Produto para depois deletar
+        $produto->delete();
+
+        return redirect()->route('produto.listar')->with('sucess','Produto excluido com sucesso!');
+     }
     }
 ?>
 

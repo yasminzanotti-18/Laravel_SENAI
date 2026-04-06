@@ -1,55 +1,66 @@
 <?php
- namespace App\Http\Controllers;
- use App\Models\Aluno;
 
- use Illuminate\Http\Request;
+namespace App\Http\Controllers;
+use App\Models\Aluno;
 
- class AlunoController extends controller{
+use Illuminate\Http\Request;
+
+class AlunoController extends Controller{
     public function listar(){
-        $query = Aluno::query();
-        $alunos = $query->get(); // mesma coisa que  select * from alunos
-        return view('listar', compact( 'alunos'));
+        // $query = Aluno::query();
+        // $alunos = $query->get();
+
+        $alunos = Aluno::with('turma')->get();
+        return view('listar', compact('alunos'));
     }
 
-    
     public function add(Request $request){
-        $request->validate([ //validando os caracteres
-            'nome'=>'required|string|max:255',
-            'email' =>'required|string|max:255|unique:alunos,email'
-        ]);
-    Aluno::create([ //está criando 
-        'nome'=>$request->nome,
-        'email'=>$request->email
-    ]);
-    return redirect()->back()->with('sucess','Aluno cadastrado com sucesso!');
-     }
-     
-     public function atualizar($id){
-        $aluno = Aluno::findOrFail($id); //Busca o alno pelo id
-        return view('atualizar', compact('aluno'));
-     }
 
-     public function update(request $request, $id){
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'email' => 'required|string|max:255|unique:alunos,email',
+        'turma_id' => 'nullable|exists:turmas,id' //para poder ser nulo ou existir na tableas turmas
+    ]);
+
+    Aluno::create([
+        'nome' => $request->nome,
+        'email' => $request->email,
+        'turma_id' => $request->turma_id
+    ]);
+
+    return redirect()->back()->with('sucess','Aluno Cadastrado com sucesso!');
+
+    }
+
+    public function atualizar($id){
+        $aluno = Aluno::findOrFail($id); //Busca o aluno pelo ID
+        // select * from alunos where id = $id
+        return view('atualizar', compact('aluno'));
+    }
+
+    public function update(Request $request, $id){
         $request->validate([
             'nome' => 'required|string|max:255',
             'email' => "required|string|max:255|unique:alunos,email,$id"
         ]);
-        
-        $aluno = Aluno::findOrFail($id); //buscar aluno para ser atualizado 
-        $aluno->nome = $request->nome;//atualizando campo nome
-        $aluno->email = $request->email;//atualizando campo email
 
-        $aluno->save(); //salvando o banco de dados 
-        return redirect()->back()->with('success','Aluno atualizado com sucesso');
-     }
+        $aluno = Aluno::findOrFail($id); //buscar o aluno pra ser atualizado
 
-     public function deletar($id){
-        $aluno = Aluno::findOrFail($id); //Buscar o aluno para depois deletar
-        $aluno->delete(); //faz o delete no banco de dados 
+        $aluno->nome = $request->nome; //atualizando o campo nome
+        $aluno->email = $request->email; //atualizando o campo email
 
-        return redirect()->route('aluno.listar')->with('sucess','Aluno excluido com sucesso!');
-     } // recarregar a tela 
+        $aluno->save(); //salvando no banco de dados
+        return redirect()->back()->with('seccess','Aluno atualizado com sucesos');
+    }
 
+    public function deletar($id){
+        $aluno = Aluno::findOrFail($id); // buscar o aluno para depois deletar
+        $aluno->delete();
+
+        return redirect()->route('aluno.listar')->with('seccess','Aluno excluido com secesso!');
 
     }
+    
+}
+
 ?>
