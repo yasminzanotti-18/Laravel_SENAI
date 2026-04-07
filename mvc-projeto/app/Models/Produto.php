@@ -15,7 +15,7 @@ class Produto extends Model{
     ];
 
     public function setor(){
-        return $this->belongsTo(Setor::class);
+        return $this->belongsTo(Setores::class);
     }
 
     public function detalhe(){

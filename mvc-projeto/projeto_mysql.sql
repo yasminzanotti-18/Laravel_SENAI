@@ -23,7 +23,7 @@ FOREIGN KEY (detalhes_id) REFERENCES detalhesProduto(id);
 create table Setores(
 	id int auto_increment primary key,
     nome varchar(100),
-    nCorredor int,
+    nCorredor int
 );
 
 ALTER TABLE Setores 
