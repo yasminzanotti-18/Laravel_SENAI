@@ -24,6 +24,12 @@
 
         <label for="turma_id">ID da Turma:</label>
         <input type="number" name="turma_id" id="turma_id" placeholder="ID da Turma..." require value="{{old('email')}}">
+
+         <select name="turma_id" id="turma_id">
+            @foreach ($turmas as $turma)
+                <option value="{{$turma->id}}">{{$turma->serie}}</option>
+            @endforeach
+        </select>
         
         <input type="submit" value="Cadastrar">
     </form>

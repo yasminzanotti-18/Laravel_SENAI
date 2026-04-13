@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Aluno;
+use App\Models\Turma;
 
 use Illuminate\Http\Request;
 
@@ -12,6 +13,12 @@ class AlunoController extends Controller{
 
         $alunos = Aluno::with('turma')->get();
         return view('listar', compact('alunos'));
+    }
+
+
+     public function cadastro(){
+        $turmas = Turma::get();
+        return view('cadastro', compact('turmas'));
     }
 
     public function add(Request $request){

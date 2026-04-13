@@ -11,9 +11,7 @@ Route::get('/', function () {
 
 Route::get('/aluno/listar',[AlunoController::class, 'listar'])->name('aluno.listar'); //acessar o banco 
 
-route::get('aluno/cadastrar', function(){ //não precisa acessar o banco 
-    return view('cadastro');
-})->name('aluno.cadastro');
+route::get('aluno/cadastrar', [AlunoController::class, 'cadastro'])->name('aluno.cadastro');
 
 //POST-enviar os dados para cadastrar usuários
 Route::post('/aluno/salvar', [AlunoController::class, 'add'])->name('aluno.salvar');
@@ -31,4 +29,5 @@ Route::get('/turma/cadastrar', function(){ //não precisa acessar o banco
 })->name('turma.cadastro');
 
 Route::post('/turma/salvar', [TurmaController::class, 'add'])->name('turma.salvar');
+
 
