@@ -30,7 +30,28 @@
                 <option value="{{$turma->id}}">{{$turma->serie}}</option>
             @endforeach
         </select>
-        
+
+        <h2>Informações Pessoais</h2>
+
+       <label>Telefone:</label>
+       <input type="text" name="telefone">
+       <br><br>
+
+        <label>Data de nascimento:</label>
+        <input type="date" name="data_nascimento">
+        <br><br>
+
+        <label>Endereço:</label>
+        <input type="text" name="endereco">
+        <br><br>
+
+        <label>Idade:</label>
+        <input type="number" name="idade">
+        <br><br>
+
+        <button type="submit">Salvar</button>
+
+</form>
         <input type="submit" value="Cadastrar">
     </form>
 
@@ -46,3 +67,80 @@
     @endif
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1>Cadastrar Aluno</h1>
+
+<form action="{{route('aluno.salvar')}}" method="POST">
+@csrf
+
+<h2>Dados do Aluno</h2>
+
+<label>Nome:</label>
+<input type="text" name="nome" required>
+<br><br>
+
+<label>Email:</label>
+<input type="email" name="email" required>
+<br><br>
+
+<label>ID Turma:</label>
+<input type="number" name="turma_id">
+<br><br>
+
+<hr>
+
+<h2>Informações Pessoais</h2>
+
+<label>Telefone:</label>
+<input type="text" name="telefone">
+<br><br>
+
+<label>Data de nascimento:</label>
+<input type="date" name="data_nascimento">
+<br><br>
+
+<label>Endereço:</label>
+<input type="text" name="endereco">
+<br><br>
+
+<label>Idade:</label>
+<input type="number" name="idade">
+<br><br>
+
+<button type="submit">Salvar</button>
+
+</form>
+
+
