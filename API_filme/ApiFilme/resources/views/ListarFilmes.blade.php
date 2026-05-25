@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle</title>
+    <title>Controle de Filmes</title>
 </head>
     <body>
         <h1>Controle de Filmes</h1>
-        <a href="/autor/cadastrar">Cadastrar Autor</a>
-        <br>
-        <a href="/filme/cadastrar">Cadastrar Filme</a>
+
         <table border="1">
             <thead>
                 <tr>
@@ -24,8 +22,6 @@
                     <th>DATA NASCIMENTO</th>
                     <th>EMAIL</th>
                     <th>TELEFONE</th>
-                    <th>ATUALIZAR</th>
-                    <th>DELETAR</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,17 +38,6 @@
                         <td>{{ $Filme->autor->dataNascimento ?? 'N/A' }}</td>
                         <td>{{ $Filme->autor->email ?? 'N/A' }}</td>
                         <td>{{ $Filme->autor->telefone ?? 'N/A' }}</td>
-                        <td>
-                            <a href="{{route('filme.atualizar', $Filme->id)}}">Atualizar</a>
-                        </td>
-                        <td>
-                            <form action="{{ route('filme.deletar', $Filme->id)}}" method="POST"
-                                onsubmit="return confirm('Tem certeza que deseja deletar este filme?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">Deletar</button>
-                            </form>
-                        </td>
                 </tr>
                 @empty
                     <tr>

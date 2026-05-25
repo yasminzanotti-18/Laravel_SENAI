@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Models\Filme;
-use App\Models\Autor;
+use App\Models\Autores;
 
 use Illuminate\Http\Request;
 
 class AutorApiController extends Controller
 {
     public function listarApi(){
-        $autores = Autor::all();
+        $autores = Autores::all();
         return response()->json($autores, 200);
     }
 
@@ -21,7 +21,7 @@ class AutorApiController extends Controller
         'telefone' => 'required|string|max:20',
     ]);
         
-    $autor = Autor::create([
+    $autor = Autores::create([
         'nome' => $request->nome,
         'dataNascimento' => $request->dataNascimento,
         'email' => $request->email,
@@ -42,7 +42,7 @@ class AutorApiController extends Controller
             'telefone' => 'required|string|max:20',
         ]);
 
-        $autor = Autor::findOrFail($id); 
+        $autor = Autores::findOrFail($id); 
 
         $autor->nome = $request->nome; 
         $autor->dataNascimento = $request->dataNascimento;
@@ -58,8 +58,9 @@ class AutorApiController extends Controller
     }
 
     public function deletarApi($id){
-        $autor = Autor::findOrFail($id); 
+        $autor = Autores::findOrFail($id); 
         $autor->delete(); 
+
         return response()->json([
             'message' => "Autor Deletado com Sucesso!",
             'autor' => $autor
