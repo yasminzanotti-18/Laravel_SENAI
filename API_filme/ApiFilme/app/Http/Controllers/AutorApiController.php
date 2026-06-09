@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\Models\Filme;
-use App\Models\Autores;
+use App\Models\Autor;
 
 use Illuminate\Http\Request;
 
 class AutorApiController extends Controller
 {
     public function listarApi(){
-        $autores = Autores::all();
+        $autores = Autor::all();
         return response()->json($autores, 200);
     }
 
@@ -17,11 +17,11 @@ class AutorApiController extends Controller
         $request->validate([
         'nome' => 'required|string|max:255',
         'dataNascimento' => 'required|date',
-        'email' => 'required|email|unique:autores,email',
+        'email' => 'required|email|unique:autores',
         'telefone' => 'required|string|max:20',
     ]);
         
-    $autor = Autores::create([
+    $autor = Autor::create([
         'nome' => $request->nome,
         'dataNascimento' => $request->dataNascimento,
         'email' => $request->email,
@@ -38,18 +38,18 @@ class AutorApiController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'dataNascimento' => 'required|date',
-            'email' => 'required|email|unique:autores,email',
+            'email' => 'required|email|unique:autores',
             'telefone' => 'required|string|max:20',
         ]);
 
-        $autor = Autores::findOrFail($id); 
+        $autor = Autor::findOrFail($id); // Busca o autor para ser atualizado
 
-        $autor->nome = $request->nome; 
+        $autor->nome = $request->nome; // Atualizando o campo nome
         $autor->dataNascimento = $request->dataNascimento;
         $autor->email = $request->email;
         $autor->telefone = $request->telefone;
 
-        $autor->save(); 
+        $autor->save(); // Salvando no banco de dados(fazendo update)
 
         return response()->json([
             'message' => "Autor Atualizado!",
@@ -58,8 +58,8 @@ class AutorApiController extends Controller
     }
 
     public function deletarApi($id){
-        $autor = Autores::findOrFail($id); 
-        $autor->delete(); 
+        $autor = Autor::findOrFail($id); // Buscar o autor pelo ID
+        $autor->delete(); // Deletar o autor do banco de dados
 
         return response()->json([
             'message' => "Autor Deletado com Sucesso!",

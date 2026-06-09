@@ -6,30 +6,56 @@
     <title>Controle de Filmes</title>
 </head>
     <body>
+        <h1>Controle de Autores</h1>
+        <a href="/filme/listar">Listar Filmes</a>
+        <br>
+
+        <form method="GET" action="{{ route('autor.listar') }}">
+    
+            <input
+                type="text"
+                name="nome"
+                placeholder="Digite o nome do autor"
+                value="{{ request('nome') }}"
+            >
+            
+            <input
+                type="text"
+                name="telefone"
+                placeholder="Digite o telefone do autor"
+                value="{{ request('telefone') }}"
+            >
+
+            <button type="submit">Buscar</button>
+
+        </form>
+
         <table border="1">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>NOME</th>
-                    <th>DATA DE NASCIMENTO</th>
-                    <th>E-MAIL</th>
-                    <th>TELEFONE</th>
+                    <th>DATA NASCIMENTO</th>
+                    <th>EMAIL</th>
+                    <th>TELEFONE</th
                 </tr>
             </thead>
             <tbody>
-                @forelse($Autores as $Autor)
+                @forelse($autores as $Autor)
                     <tr>
                         <td>{{ $Autor->id }}</td>
                         <td>{{ $Autor->nome }}</td>
                         <td>{{ $Autor->dataNascimento }}</td>
                         <td>{{ $Autor->email }}</td>
                         <td>{{ $Autor->telefone }}</td>
-                </tr>
+                    
+                    </tr>
                 @empty
                     <tr>
-                        <td colsoan="13">Nenhum Autor encontrado</td>
+                        <td colsoan="5">Nenhum Autor encontrado</td>
                     </tr>
                 @endforelse
             </tbody>
+        </table>
     </body>
 </html>

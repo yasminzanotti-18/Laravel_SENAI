@@ -7,6 +7,28 @@
 </head>
     <body>
         <h1>Controle de Filmes</h1>
+        <a href="/autor/listar">Listar Autores</a>
+        <br>
+
+        <form method="GET" action="{{ route('filme.listar') }}">
+    
+            <input
+                type="text"
+                name="titulo"
+                placeholder="Digite o título do filme"
+                value="{{ request('titulo') }}"
+            >
+            
+            <input
+                type="text"
+                name="dataLancamento"
+                placeholder="Digite a data de lançamento"
+                value="{{ request('dataLancamento') }}"
+            >
+
+            <button type="submit">Buscar</button>
+
+        </form>
 
         <table border="1">
             <thead>
@@ -17,15 +39,11 @@
                     <th>SINOPSE</th>
                     <th>GENERO</th>
                     <th>ORÇAMENTO</th>
-                    <th>AUTOR ID</th>
-                    <th>NOME</th>
-                    <th>DATA NASCIMENTO</th>
-                    <th>EMAIL</th>
-                    <th>TELEFONE</th>
+                    <th>AUTOR</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($Filmes as $Filme)
+                @forelse($filmes as $Filme)
                     <tr>
                         <td>{{ $Filme->id }}</td>
                         <td>{{ $Filme->titulo }}</td>
@@ -33,17 +51,14 @@
                         <td>{{ $Filme->sinopse }}</td>
                         <td>{{ $Filme->genero }}</td>
                         <td>{{ $Filme->orcamento }}</td>
-                        <td>{{ $Filme->autor->id ?? 'N/A' }}</td>
-                        <td>{{ $Filme->autor->nome ?? 'N/A'}}</td>
-                        <td>{{ $Filme->autor->dataNascimento ?? 'N/A' }}</td>
-                        <td>{{ $Filme->autor->email ?? 'N/A' }}</td>
-                        <td>{{ $Filme->autor->telefone ?? 'N/A' }}</td>
+                        <td>{{ $Filme->autor->id ?? 'Autor não especificado' }}</td>
                 </tr>
                 @empty
                     <tr>
-                        <td colsoan="13">Nenhum Filme encontrado</td>
+                        <td colsoan="6">Nenhum Filme encontrado</td>
                     </tr>
                 @endforelse
             </tbody>
+        </table>
     </body>
 </html>

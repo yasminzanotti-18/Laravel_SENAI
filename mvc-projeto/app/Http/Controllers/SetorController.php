@@ -1,29 +1,45 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Setores; // em outros casos, mudar o "Setor" para o nome ideal ao projeto
 
-use App\Models\Setor;
 use Illuminate\Http\Request;
 
-class SetorController extends Controller{
-
-    public function listarSetor(){
-        $setores = Setor::all(); // usando o all() pq quero apenas listar
-        return view('listarSetor', compact('setores'));
-    }
-
+class SetorController extends Controller
+{
     public function add(Request $request){
-
         $request->validate([
-            'nome' => 'required|string|max:255',
-            'nCorredor' => 'required|string|max:255'
+            'nomeSetor' => 'required|string|max:255',
+            'numCorredor' => 'required|numeric|max:255'
         ]);
 
-        Setor::create([
-            'nome' => $request->nome,
-            'nCorredor' => $request->nCorredor
+        Setores::create([
+            'nomeSetor' => $request->nomeSetor,
+            'numCorredor' => $request->numCorredor
         ]);
 
-        return redirect()->back()->with('success','Setor cadastrado com sucesso!');
+        return redirect()->back()->with('success', 'Setor cadastrado com sucesso!');
     }
+
+    public function listar(Request $request){
+        try{
+        $query = Setores::query();
+
+        // filtro por nome
+        if($request->filled('nomeSetor')){
+            $query->where('nomeSetor', 'like', '%'.$request->nomeSetor .'%');
+        }
+        // filtro por número de setor
+        $setores = $query->get();
+
+        return view('listarSetor', compact('setores'));
+
+       } catch(\Exception $e){
+            return response()->json([
+                'setores' => collect(),
+                'erro' => 'Erro interno do servidor'
+            ], 500);
+        }
+    }
+   
 }
